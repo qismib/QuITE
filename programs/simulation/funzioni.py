@@ -1,6 +1,7 @@
 from qiskit import *
 from qiskit.extensions import Initialize
 from qiskit.visualization import *
+from qiskit.quantum_info import *
 import numpy as np
 import random
 
