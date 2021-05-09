@@ -4,6 +4,16 @@ from qiskit.visualization import *
 from qiskit.quantum_info import *
 import numpy as np
 import random
+import math
+
+#angoli casuali per creare psi
+a = random.random()
+b = random.random()
+
+theta = a*2*np.pi
+phi = b*np.pi
+
+
 
 def Bell_pair(circuit, qr) :
     circuit.h(qr[1])
@@ -11,6 +21,7 @@ def Bell_pair(circuit, qr) :
 
     circuit.barrier()
 
+#non utilizzata
 def create_a_random_state0(circuit, qr) :
     vec = random_statevector(2) #creo un generico vettore a base 2
     #al qubit 0 do le ampiezze del generico vettore
@@ -20,17 +31,14 @@ def create_a_random_state0(circuit, qr) :
 
     circuit.barrier()
 
+
+#utilizzata
 def create_a_random_state1(circuit, qr) :
-    #prendo degli agoli generici
-    a = random.random()
-    b = random.random()
-
-    theta = a*2*np.pi
-    phi = b*2*np.pi
-
     #la trasformazione che porta da |0> a |psi> può essere sempre riscritta cosi
-    circuit.ry(theta, qr[0])
-    circuit.rz(phi, qr[0])
+    circuit.ry(phi, qr[0])
+    circuit.rz(theta, qr[0])
+
+    plot_bloch_vector([1,phi,theta], title='psi', coord_type='spherical')
 
     circuit.barrier()
 
@@ -46,8 +54,17 @@ def Alice_measurements(circuit, qr, Alice_cr0, Alice_cr1) :
     circuit.measure(qr[1], Alice_cr1)
 
 
-    circuit.barrier()
-
 def Bob_operations(circuit, qr, Alice_cr0, Alice_cr1) :
      circuit.x(qr[2]).c_if(Alice_cr1, 1)
      circuit.z(qr[2]).c_if(Alice_cr0, 1)
+
+     circuit.barrier()
+
+
+
+def checking(circuit, qr, Bob_cr) :
+    #riporto lo stato a |0>
+    circuit.rz(2*np.pi-theta, qr[2])
+    circuit.ry(2*np.pi-phi, qr[2])
+
+    circuit.barrier()
