@@ -17,7 +17,7 @@ We simulate this protocol first in the Qasm simulator:
 
 
 We first create the generic state with two rotational gates, after, in order to verify the correct implementation, we apply the rotational gate to the last qubit. As expected we obtain always 0 from the measurement of the last qubit.
-![](https://github.com/qismib/QuITE/blob/main/images/qasm_simulator/result_simulator.png) 
+![ ](https://github.com/qismib/QuITE/blob/main/images/qasm_simulator/result_simulator.png  "simulato_results")
 
 
 
